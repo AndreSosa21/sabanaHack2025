@@ -66,3 +66,55 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* ===== Alertas ===== */
+.alert-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 12px;
+}
+.level{
+  padding: 8px 12px; border-radius: 999px; font-weight:700;
+  border:1px solid rgba(255,255,255,.1);
+}
+.level.green{ background: rgba(16,185,129,.12); border-color: rgba(16,185,129,.4); }
+.level.yellow{ background: rgba(255,193,7,.12); border-color: rgba(255,193,7,.5); color:#ffe29a; }
+.level.orange{ background: rgba(255,159,67,.12); border-color: rgba(255,159,67,.55); color:#ffd3a1; }
+.level.red{ background: rgba(227,6,19,.12); border-color: rgba(227,6,19,.6); color:#ffc0c4; }
+
+.meters{
+  display:grid; gap:10px; grid-template-columns: repeat(5, 1fr);
+}
+.meter{ background: rgba(255,255,255,.03); padding:10px; border-radius:12px; }
+.meter-top{ display:flex; align-items:center; justify-content:space-between; font-size:13px; color: var(--muted); }
+.meter .bar{ height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin-top:8px;}
+.meter .fill{ height:100%; border-radius:999px; }
+
+.sliders{ margin-top:14px; display:grid; gap:10px; grid-template-columns: repeat(2, 1fr); }
+.sim-slider{ display:block; }
+.sim-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; color: var(--muted); }
+.sim-slider input[type="range"]{ width:100%; }
+
+.broadcast{
+  margin-top:12px; display:flex; align-items:center; gap:12px;
+}
+.btn{
+  background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+  color: var(--text); padding:8px 12px; border-radius:12px; cursor:pointer;
+}
+.btn:hover{ background: rgba(255,255,255,.1); }
+.btn.danger{ background: rgba(227,6,19,.15); border-color: rgba(227,6,19,.5); }
+
+.entity-card .entity-head{
+  display:flex; align-items:center; justify-content:space-between; margin-bottom: 6px;
+}
+.entity-card .chip{
+  padding: 6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.1);
+}
+.entity-card .chip.red{ border-color: rgba(227,6,19,.6); color:#ffc0c4; }
+.entity-card .chip.orange{ border-color: rgba(255,159,67,.55); color:#ffd3a1; }
+.entity-card .chip.yellow{ border-color: rgba(255,193,7,.55); color:#ffe29a; }
+.entity-card .chip.green{ border-color: rgba(16,185,129,.4); }
+
+.entity-card .need, .entity-card .message{ margin:8px 0; }
+.entity-card .actions{ margin:0; padding-left: 18px; display:grid; gap:6px; }
+

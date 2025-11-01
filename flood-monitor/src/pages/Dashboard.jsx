@@ -2,6 +2,7 @@ import { useState } from "react";
 import StatCard from "../components/StatCard.jsx";
 import { useSensors } from "../hooks/useSensors.js";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
+import ForecastPanel from "../components/ForecastPanel.jsx";
 
 export default function Dashboard() {
   const [region, setRegion] = useState("Tramo Medio");
@@ -35,7 +36,7 @@ export default function Dashboard() {
       <header className="page-header">
         <div>
           <h2>Dashboard</h2>
-          <p className="muted">Monitoreo en tiempo (casi) real por región</p>
+          <p className="muted">Monitoreo en tiempo real por región</p>
         </div>
         <div className="controls">
           <label className="select">
@@ -96,36 +97,10 @@ export default function Dashboard() {
             </BarChart>
           </ResponsiveContainer>
         </div>
+        
       </div>
 
-      <div className="card recommendations">
-        <div className="card-header">
-          <h3>Sugerencias ambientales y comunitarias</h3>
-        </div>
-        <ul className="recos">
-          {risk.level === "danger" && (
-            <>
-              <li>🔊 Activar **altavoces comunitarios** en {region}: “Evacuar zonas ribereñas hacia puntos seguros”.</li>
-              <li>🚒 Notificar a **Bomberos, Defensa Civil y Cruz Roja** con coordenadas de puntos críticos.</li>
-              <li>🌱 Enlazar proyecto de **bioingeniería**: siembra de vetiver/guadua en taludes inestables.</li>
-            </>
-          )}
-          {risk.level === "warn" && (
-            <>
-              <li>📢 Mensaje preventivo: “Lluvias intensas. Evitar cruzar vados y puentes bajos”.</li>
-              <li>🧱 Preparar **sacos de contención** en cruces viales críticos.</li>
-              <li>🌿 Plan de **restauración riparia** en {region}: franjas de vegetación nativa 15–30 m.</li>
-            </>
-          )}
-          {risk.level === "ok" && (
-            <>
-              <li>👥 Capacitar juntas de acción comunal en **rutas de evacuación** y puntos de encuentro.</li>
-              <li>🛰️ Programar instalación de **sensores de turbidez** en descargas cercanas a actividades mineras.</li>
-              <li>📈 Mantener campañas de **reforestación** en microcuencas con mayor escorrentía.</li>
-            </>
-          )}
-        </ul>
-      </div>
+    
     </section>
   );
 }
