@@ -35,6 +35,15 @@ export default function Navbar() {
           <MapIcon className="nav-icon" aria-hidden="true" />
           <span>Mapas</span>
         </NavLink>
+
+
+        <NavLink
+            to="/simulacion"
+            className={({ isActive }) => (isActive ? "link active" : "link")}
+            >
+            <LifeBuoy className="nav-icon" aria-hidden="true" />
+            <span>Simulación</span>
+            </NavLink>
       </nav>
 
       <footer className="nav-footer">

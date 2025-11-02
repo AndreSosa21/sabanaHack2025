@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Alerts from "./pages/Alerts.jsx";
 import Maps from "./pages/Maps.jsx";
+import Simulacion from "./pages/Simulacion.jsx";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/alertas" element={<Alerts />} />
           <Route path="/mapas" element={<Maps />} />
+          <Route path="/simulacion" element={<Simulacion />} />
         </Routes>
       </main>
     </div>
