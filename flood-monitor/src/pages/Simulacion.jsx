@@ -1,54 +1,59 @@
-import { useRef, useState } from "react";
-import RiverColumnSim from "../components/RiverColumnSim.jsx";
+import { useSimulatedSensors } from "../hooks/useSimulatedSensors.js";
+import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 import StatCard from "../components/StatCard.jsx";
 
-export default function Simulacion(){
-  const [region, setRegion] = useState("Tramo Medio");
-  const lastRef = useRef(null);
+export default function Simulacion() {
+  const { region, setRegion, data, setData, history } = useSimulatedSensors();
+
+  const handleChange = (key, value) => setData(prev => ({ ...prev, [key]: Number(value) }));
 
   return (
     <section className="page">
       <header className="page-header">
-        <div>
-          <h2>Simulación</h2>
-          <p className="muted">Columna de instrumentación 3D · niveles, lluvia, turbidez y velocidad</p>
-        </div>
+        <h2>Simulación</h2>
+        <p className="muted">Ajusta los sensores manualmente y observa la evolución</p>
         <div className="controls">
-          <label className="select">
-            <span>Región</span>
-            <select value={region} onChange={(e)=>setRegion(e.target.value)}>
-              <option>Tramo Alto</option>
-              <option>Tramo Medio</option>
-              <option>Tramo Bajo</option>
+          <label>
+            Región:
+            <select value={region} onChange={(e) => setRegion(e.target.value)}>
+              {["Tramo Alto","Tramo Medio","Tramo Bajo"].map(r => <option key={r} value={r}>{r}</option>)}
             </select>
           </label>
         </div>
       </header>
 
       <div className="grid-2">
-        <div className="card" style={{padding:12}}>
-          <RiverColumnSim
-            regionName={region}
-            onData={(d)=>{ lastRef.current = d; }}
-          />
+        <div className="card" style={{ padding:12, display:"flex", flexDirection:"column", gap:20 }}>
+          {[
+            { label:"Nivel (m)", key:"level_m", min:0,max:10,step:0.1 },
+            { label:"Lluvia (mm/h)", key:"rain_mmph", min:0,max:20,step:0.1 },
+            { label:"Turbidez (NTU)", key:"turbidity_ntu", min:0,max:100,step:1 },
+            { label:"Velocidad (m/s)", key:"velocity_mps", min:0,max:5,step:0.1 }
+          ].map(s => (
+            <label key={s.key}>
+              {s.label}: {data[s.key]}
+              <input type="range" min={s.min} max={s.max} step={s.step}
+                     value={data[s.key]} onChange={e=>handleChange(s.key, e.target.value)} />
+            </label>
+          ))}
+
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={history}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="timestamp" tickFormatter={t => new Date(t).toLocaleTimeString()} />
+              <YAxis />
+              <Tooltip labelFormatter={t => new Date(t).toLocaleTimeString()} />
+              <Line type="monotone" dataKey="level_m" stroke="#4a90e2" dot={false} />
+              <Line type="monotone" dataKey="rain_mmph" stroke="#00c49f" dot={false} />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
 
-        <div className="card" style={{display:"flex", flexDirection:"column", gap:10}}>
-          <div className="card-header">
-            <h3>Lecturas en tiempo real</h3>
-            <span className="hint">Actualiza 1 Hz</span>
-          </div>
-
-          <div className="grid-2">
-            <StatCard title="Nivel" value={lastRef.current?.level_m ?? 0} unit="m" subtitle="Ultrasónico" />
-            <StatCard title="Lluvia" value={lastRef.current?.rain_mmph ?? 0} unit="mm/h" subtitle="Pluviómetro" />
-            <StatCard title="Turbidez" value={lastRef.current?.turbidity_ntu ?? 0} unit="NTU" subtitle="Óptica" />
-            <StatCard title="Velocidad" value={lastRef.current?.velocity_mps ?? 0} unit="m/s" subtitle="ADCP" />
-          </div>
-
-          <div className="muted" style={{fontSize:12}}>
-            Tip: arrastra el control de lluvia en el HUD para ver cómo cambian nivel, turbidez y velocidad.
-          </div>
+        <div className="card" style={{ display:"flex", flexDirection:"column", gap:10 }}>
+          <StatCard title="Nivel" value={data.level_m} unit="m" subtitle="Ultrasónico" />
+          <StatCard title="Lluvia" value={data.rain_mmph} unit="mm/h" subtitle="Pluviómetro" />
+          <StatCard title="Turbidez" value={data.turbidity_ntu} unit="NTU" subtitle="Óptica" />
+          <StatCard title="Velocidad" value={data.velocity_mps} unit="m/s" subtitle="ADCP" />
         </div>
       </div>
     </section>
