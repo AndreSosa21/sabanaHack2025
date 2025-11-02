@@ -27,10 +27,12 @@ El proyecto cuenta con una simulación del sistema en un entorno web, que repres
 </p>
 
 ## Detalles técnicos
-- **Lenguajes o tecnologías**: (ej. Python, Java, React, etc.)
-- **Herramientas**: (ej. MySQL, GitHub, Figma, etc.)
-- **Alcance del prototipo**: desde la planeación y el monitoreo hasta la mitigación y las sugerencia de acciones preventivas.
-- **Presupuesto estimado**: aproximadamente $12.000.000 COP, incluyendo sensores, microcontroladores, materiales de instalación y  mano de obra. 
+- **Lenguajes / tecnologías:** React (Vite), JavaScript/TypeScript opcional, Recharts, React-Leaflet, HTML/CSS.
+
+- **Herramientas:** ArcGIS Online (web app embebida) / Leaflet, GitHub, Figma. (Opcional/roadmap: Open-Meteo/IDEAM, Firebase/Firestore, Node API)
+
+- **Alcance del prototipo:** monitoreo simulado por región, cálculo de riesgo (logística heurística + proyecciones), alertas por altavoz (TTS), sugerencias por actor, mapa con puntos críticos, memoria/historial básico.
+- **Presupuesto estimado**: aproximadamente $15.000.000 COP, incluyendo sensores, microcontroladores, materiales de instalación, mano de obra y software. 
 
 ## Repositorio del proyecto
 📁 
